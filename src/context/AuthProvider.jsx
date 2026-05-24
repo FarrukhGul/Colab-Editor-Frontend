@@ -27,17 +27,20 @@ export const AuthProvider = ({children}) => {
     }
     fetchUser();
 }, [])
-    const login = async (email, password) => {
-        try {
-            const res = await loginAPI({ email, password });
-            sessionStorage.setItem('accessToken', res.data.accessToken);
-            setUser(res.data.user);
-        } catch(error) {
-            console.error("Login error:", error);
-            throw error;
+const login = async (email, password) => {
+    try {
+        const res = await loginAPI({ email, password });
+        sessionStorage.setItem('accessToken', res.data.accessToken);
+        // Save refreshToken if provided by backend (optional but good for security)
+        if(res.data.refreshToken) {
+            sessionStorage.setItem('refreshToken', res.data.refreshToken)
         }
+        setUser(res.data.user);
+    } catch(error) {
+        console.error("Login error:", error);
+        throw error;
     }
-
+}
  const logout = async () => {
     try {
         const token = sessionStorage.getItem("accessToken")
