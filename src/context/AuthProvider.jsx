@@ -38,18 +38,24 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    const logout = async () => {
-        try {
-            const token = sessionStorage.getItem("accessToken");
-            if(token) {
-                await logoutAPI();
-                sessionStorage.removeItem("accessToken");
-                setUser(null);
-            }
-        } catch(error) {
-            console.error("Logout error:", error);
+ const logout = async () => {
+    try {
+        const token = sessionStorage.getItem("accessToken")
+        const refreshToken = sessionStorage.getItem("refreshToken")
+        if(token) {
+            await logoutAPI(refreshToken)
+            sessionStorage.removeItem("accessToken")
+            sessionStorage.removeItem("refreshToken")
+            setUser(null)
         }
+    } catch(error) {
+        console.error("Logout error:", error);
+        // Even if logout API fails — clear session anyway
+        sessionStorage.removeItem("accessToken")
+        sessionStorage.removeItem("refreshToken")
+        setUser(null)
     }
+}
 
     return (
         <AuthContext.Provider value={{ user, loading, login, logout }}>
