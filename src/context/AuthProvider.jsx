@@ -6,12 +6,14 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  
-useEffect(() => {
+  useEffect(() => {
     const fetchUser = async () => {
+        setLoading(true)
+
         const token = localStorage.getItem("accessToken")
 
         if (!token) {
+            setUser(null)
             setLoading(false)
             return
         }
@@ -31,6 +33,7 @@ useEffect(() => {
 
     fetchUser()
 }, [])
+
 
     const login = async (email, password) => {
         try {
