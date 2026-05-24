@@ -426,13 +426,13 @@ const Editor = () => {
                             ) : (
                                 <span className='text-[10px]'>●</span>
                             )}
-                            <span className='hidden sm:block capitalize'>{saveStatus}</span>
+                            <span className='capitalize'>{saveStatus}</span>
                         </div>
 
                         {/* Connection status indicator */}
                         <div className={`flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full ${connected ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
                             <span className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-emerald-400 animate-pulse' : 'bg-red-400'}`} />
-                            <span className='hidden sm:block'>{connected ? 'Live Sync' : 'Offline'}</span>
+                            <span className='hidden xs:block'>{connected ? 'Live Sync' : 'Offline'}</span>
                         </div>
 
                         {/* User Avatars stack */}
