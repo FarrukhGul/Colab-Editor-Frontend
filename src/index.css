@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --color-dark-bg: #07070a;
+  --color-dark-card: #0f0f15;
+  --color-dark-surface: #14141d;
+  --color-dark-border: rgba(255, 255, 255, 0.06);
+  --color-dark-border-hover: rgba(99, 102, 241, 0.4);
+
+  --animate-scale-up: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fadeIn 0.2s ease-out forwards;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Custom styling for inputs */
+input, select, textarea {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Page transitions and visual polish */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #07070a;
+  overflow-x: hidden;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
+}
+
+/* Tiptap editor override styles */
+.tiptap-editor .ProseMirror {
+  outline: none;
+  min-height: 550px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+.tiptap-editor .ProseMirror p {
+  margin-bottom: 0rem;
+}
+
+.tiptap-editor .ProseMirror h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.tiptap-editor .ProseMirror h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f3f4f6;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.tiptap-editor .ProseMirror h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.tiptap-editor .ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.tiptap-editor .ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.tiptap-editor .ProseMirror li {
+  margin-bottom: 0.35rem;
+}
+
+.tiptap-editor .ProseMirror blockquote {
+  border-left: 4px solid #6366f1;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #9ca3af;
+  background: rgba(99, 102, 241, 0.03);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.tiptap-editor .ProseMirror code {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e0e7ff;
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: ui-monospace, monospace;
+}
+
+.tiptap-editor .ProseMirror pre {
+  background: #09090d;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.tiptap-editor .ProseMirror pre code {
+  background: transparent;
+  padding: 0;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  border-radius: 0;
+}
+
+.tiptap-editor .ProseMirror hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2rem 0;
+}
+
+.tiptap-editor .ProseMirror s {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+/* Empty placeholder styling */
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: "Start typing your masterpiece...";
+  color: rgba(255, 255, 255, 0.2);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
