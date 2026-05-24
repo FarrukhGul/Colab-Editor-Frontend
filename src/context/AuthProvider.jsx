@@ -8,25 +8,29 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+useEffect(() => {
     const fetchUser = async() => {
+        const token = sessionStorage.getItem("accessToken");
+        
+        if(!token) return  // ← seedha return, no spinner
+
+        setLoading(true)   // ← sirf token ho tab spinner
         try {
-            const token = sessionStorage.getItem("accessToken");
-            if(token) {
-                const res = await getMeAPI();
-                setUser(res.data.user)
-            }
-            // No token — directly set loading false
+            const res = await getMeAPI();
+            setUser(res.data.user)
         } catch(error) {
             console.error("Error fetching user:", error);
             sessionStorage.removeItem("accessToken")
+            sessionStorage.removeItem("refreshToken")
             setUser(null)
         } finally {
-            setLoading(false); // Ensure loading is false regardless of success or failure
+            setLoading(false);
         }
     }
     fetchUser();
 }, [])
+
+
 const login = async (email, password) => {
     try {
         const res = await loginAPI({ email, password });
