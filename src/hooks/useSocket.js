@@ -11,7 +11,7 @@ const useSocket = (user) => {
         const socket = io(
             import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000',
             {
-                auth: { token: sessionStorage.getItem('accessToken') },
+                auth: { token: localStorage.getItem('accessToken') },
                 transports: ['websocket'],
                 reconnection: true,
                 reconnectionAttempts: 5,

@@ -6,7 +6,7 @@ const API = axios.create({ baseURL: BASE_URL })
 
 // Add access token to every request
 API.interceptors.request.use((config) => {
-    const token = sessionStorage.getItem('accessToken')
+    const token = localStorage.getItem('accessToken')
     if (token) config.headers.Authorization = `Bearer ${token}`
     return config
 })
@@ -20,16 +20,16 @@ API.interceptors.response.use(
             originalRequest._retry = true
             try {
                 const res = await axios.post(`${BASE_URL}/auth/refresh`, {
-                    refreshToken: sessionStorage.getItem('refreshToken')
+                    refreshToken: localStorage.getItem('refreshToken')
                 })
                 const newAccessToken = res.data.accessToken
-                sessionStorage.setItem('accessToken', newAccessToken)
+                localStorage.setItem('accessToken', newAccessToken)
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
                 return API(originalRequest)
             } catch (err) {
-                console.error("Token refresh failed:", err)
-                sessionStorage.removeItem('accessToken')
-                sessionStorage.removeItem('refreshToken')
+                console.error(err)
+                localStorage.removeItem('accessToken')
+                localStorage.removeItem('refreshToken')
                 window.location.href = '/login'
             }
         }
@@ -41,20 +41,20 @@ API.interceptors.response.use(
 export const registerAPI = (data) => API.post('/auth/register', data)
 export const loginAPI    = (data) => API.post('/auth/login', data)
 export const logoutAPI   = ()     => API.post('/auth/logout', {
-    refreshToken: sessionStorage.getItem('refreshToken')
+    refreshToken: localStorage.getItem('refreshToken')
 })
 export const getMeAPI = () => API.get('/auth/me')
 
 // Documents
-export const getAllDocumentsAPI    = ()         => API.get('/documents')
-export const createDocumentAPI     = (data)     => API.post('/documents', data)
-export const getDocumentByIdAPI    = (id)       => API.get(`/documents/${id}`)
-export const updateDocumentAPI     = (id, data) => API.put(`/documents/${id}`, data)
-export const deleteDocumentAPI     = (id)       => API.delete(`/documents/${id}`)
+export const getAllDocumentsAPI    = ()           => API.get('/documents')
+export const createDocumentAPI     = (data)       => API.post('/documents', data)
+export const getDocumentByIdAPI    = (id)         => API.get(`/documents/${id}`)
+export const updateDocumentAPI     = (id, data)   => API.put(`/documents/${id}`, data)
+export const deleteDocumentAPI     = (id)         => API.delete(`/documents/${id}`)
 
 // Collaborators
-export const getCollaboratorsAPI   = (id)       => API.get(`/documents/${id}/collaborators`)
-export const addCollaboratorAPI    = (id, data) => API.post(`/documents/${id}/collaborators`, data)
+export const getCollaboratorsAPI   = (id)         => API.get(`/documents/${id}/collaborators`)
+export const addCollaboratorAPI    = (id, data)   => API.post(`/documents/${id}/collaborators`, data)
 export const removeCollaboratorAPI = (id, userId) => API.delete(`/documents/${id}/collaborators/${userId}`)
 
 // Versions

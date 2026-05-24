@@ -202,7 +202,7 @@ const Editor = () => {
         const socket = io(
             import.meta.env.VITE_SOCKET_URL || 'https://colab-editor-backend.onrender.com/',
             {
-                auth: { token: sessionStorage.getItem('accessToken') },
+                auth: { token: localStorage.getItem('accessToken') },
                 reconnection: true,
                 reconnectionAttempts: 5,
                 reconnectionDelay: 1000,
