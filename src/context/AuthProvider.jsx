@@ -4,28 +4,33 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchUser = async() => {
-            const token = localStorage.getItem("accessToken")
-            if(!token) return
+  
+useEffect(() => {
+    const fetchUser = async () => {
+        const token = localStorage.getItem("accessToken")
 
-            setLoading(true)
-            try {
-                const res = await getMeAPI()
-                setUser(res.data.user)
-            } catch(error) {
-                console.error("Error fetching user:", error)
-                localStorage.removeItem("accessToken")
-                localStorage.removeItem("refreshToken")
-                setUser(null)
-            } finally {
-                setLoading(false)
-            }
+        if (!token) {
+            setLoading(false)
+            return
         }
-        fetchUser()
-    }, [])
+
+        try {
+            const res = await getMeAPI()
+            setUser(res.data.user)
+        } catch (error) {
+            console.error("Error fetching user:", error)
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("refreshToken")
+            setUser(null)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    fetchUser()
+}, [])
 
     const login = async (email, password) => {
         try {
