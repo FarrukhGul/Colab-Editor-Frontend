@@ -51,8 +51,9 @@ API.interceptors.response.use(
 // Auth
 export const registerAPI = (data) => API.post('/auth/register', data)
 export const loginAPI = (data) => API.post('/auth/login', data, { withCredentials: true })
-export const logoutAPI = () => API.post('/auth/logout', {}, { withCredentials: true })
-export const getMeAPI = () => API.get('/auth/me')
+export const logoutAPI = () => API.post('/auth/logout', { 
+    refreshToken: sessionStorage.getItem('refreshToken') 
+})export const getMeAPI = () => API.get('/auth/me')
 
 // Documents
 export const getAllDocumentsAPI = () => API.get('/documents')
