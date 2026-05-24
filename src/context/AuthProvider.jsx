@@ -9,22 +9,24 @@ export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUser = async() => {
-            try {
-                const token = sessionStorage.getItem("accessToken");
-                if(token) {
-                    const res = await getMeAPI();
-                    setUser(res.data.user)
-                }
-            } catch(error) {
-                console.error("Error fetching user:", error);
-            } finally {
-                setLoading(false);
+    const fetchUser = async() => {
+        try {
+            const token = sessionStorage.getItem("accessToken");
+            if(token) {
+                const res = await getMeAPI();
+                setUser(res.data.user)
             }
+            // No token — directly set loading false
+        } catch(error) {
+            console.error("Error fetching user:", error);
+            sessionStorage.removeItem("accessToken")
+            setUser(null)
+        } finally {
+            setLoading(false); // Ensure loading is false regardless of success or failure
         }
-        fetchUser();
-    }, [])
-
+    }
+    fetchUser();
+}, [])
     const login = async (email, password) => {
         try {
             const res = await loginAPI({ email, password });
