@@ -200,7 +200,7 @@ const Editor = () => {
         if (!user) return
 
         const socket = io(
-            import.meta.env.VITE_SOCKET_URL || 'https://colab-editor-backend.onrender.com/api',
+            import.meta.env.VITE_SOCKET_URL || 'https://colab-editor-backend.onrender.com/',
             {
                 auth: { token: sessionStorage.getItem('accessToken') },
                 reconnection: true,
