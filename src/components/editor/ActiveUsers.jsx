@@ -7,18 +7,13 @@ const getInitials = (name) =>
     name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?'
 
 const ActiveUsers = ({ activeUsers = [], currentUserId = '' }) => {
-    // Total count includes self
-    const totalCount = activeUsers.length
-
-    // Avatars — exclude self
     const others = activeUsers.filter(u => u.userId !== currentUserId)
 
-    if (totalCount === 0) return null
+    if (activeUsers.length === 0) return null
 
     return (
         <div className='flex items-center gap-2.5'>
             <div className='flex -space-x-1.5'>
-            
                 {others.slice(0, 3).map((u, i) => (
                     <div
                         key={i}
@@ -37,9 +32,9 @@ const ActiveUsers = ({ activeUsers = [], currentUserId = '' }) => {
                     </div>
                 )}
             </div>
-          <span className='text-[11px] text-slate-400 font-semibold whitespace-nowrap'>
-    {totalCount} online
-</span>
+            <span className='text-[11px] text-slate-400 font-semibold whitespace-nowrap'>
+                {activeUsers.length} online
+            </span>
         </div>
     )
 }

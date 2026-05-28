@@ -9,6 +9,7 @@ import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import { FontSize } from '../components/editor/extensions/FontSize'
 import { io } from 'socket.io-client'
+
 import {
     getDocumentByIdAPI,
     updateDocumentAPI,
